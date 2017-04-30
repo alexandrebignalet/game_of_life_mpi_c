@@ -12,8 +12,7 @@ NP=4
 # Pour qu'une erreur d'execution ne termine pas le reste du makefile.
 .IGNORE:
 
-MPICC = mpicc
-CC = /usr/bin/g++
+CC = mpicc
 RUN = mpirun
 CFLAGS = -std=c99
 RM     = rm -f
