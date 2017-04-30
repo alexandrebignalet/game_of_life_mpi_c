@@ -17,12 +17,10 @@ int game_of_life_par_static(int size, int nb_steps, int repartition_probability)
 
     int my_id, nb_procs;
 
-    // On initialise MPI.
-    MPI_Init( &argc, &argv );
+    int nb_live_cells = 0;
     MPI_Comm_rank( MPI_COMM_WORLD, &my_id );
     MPI_Comm_size( MPI_COMM_WORLD, &nb_procs );
 
-    int nb_live_cells = 0;
     int my_size = size / nb_procs;
     GenerationMatrix matrix;
 
@@ -31,28 +29,41 @@ int game_of_life_par_static(int size, int nb_steps, int repartition_probability)
     }
 
     // init a sub matrix foreach procs
-    GenerationMatrix my_matrix = (GenerationMatrix) malloc(my_size* sizeof(int*));
+    GenerationMatrix my_matrix = (GenerationMatrix) malloc(my_size * sizeof(int*));
     for( int i = 0; i < my_size; i++) {
-        my_matrix[i] = (int*) malloc(my_size* sizeof(int));
+        my_matrix[i] = (int*) malloc(size * sizeof(int));
     }
 
+    if (my_id == ROOT) {
+        int start_line_chunk;
 
-    MPI_Scatter(matrix, my_size, MPI_INT, my_matrix, my_size, MPI_INT, ROOT, MPI_COMM_WORLD);
+        for (int num_proc = 0; num_proc < nb_procs; num_proc++) {
+            start_line_chunk = my_size * num_proc != 0;
 
-//    generation(my_matrix, my_size, nb_steps);
-    printf("ID: %d\n", my_id);
-    printGeneration(my_matrix, my_size);
-    printf("\n");
+            int k = 0;
+            while(k < my_size) {
+                my_matrix[k] = matrix[start_line_chunk];
+                start_line_chunk++;
+                k++;
+            }
 
-//    MPI_Gather(my_matrix, my_size, MPI_INT, matrix, my_size, MPI_INT, ROOT, MPI_COMM_WORLD);
+            if (num_proc != ROOT) {
+                MPI_Send (*my_matrix, my_size, MPI_INT, num_proc, ROOT, MPI_COMM_WORLD);
+            }
+        }
+    } else {
+        MPI_Recv(*my_matrix, my_size, MPI_INT, ROOT, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    }
 
-    /*  Iterations are done; sum the number of live cells */
-    int x, y;
-    for( x = 1; x <= size-1; x++){
-        for( y = 1; y <= size-1; y++){
-            nb_live_cells += matrix[x][y];
+    int my_sum = 0;
+    for (int j = 0; j < my_size; j++) {
+        for (int z = 0; z < my_size; z++) {
+            my_sum += my_matrix[j][z];
         }
     }
+
+    printf("id: %d, sum: %d", my_id, my_sum);
+    MPI_Reduce(&my_sum, &nb_live_cells, 1, MPI_INT, MPI_SUM, ROOT, MPI_COMM_WORLD);
 
     return nb_live_cells;
 }

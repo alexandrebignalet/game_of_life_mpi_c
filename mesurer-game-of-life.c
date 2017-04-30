@@ -17,9 +17,10 @@ int main(int argc, char *argv[])
 
     int SIZE_WITH_GHOSTS_CELLS = GENERATION_SIZE + GHOST_CELLS_SIZE; // New array size including ghost cells size
 
-    int nb_live_cells = game_of_life_par_static(SIZE_WITH_GHOSTS_CELLS, NB_STEPS, REPARTITION_PROBABILITY, my_id, nb_procs);
-    printf("\nNumber of live cells = %d\n", nb_live_cells);
-
+    int nb_live_cells = game_of_life_par_static(SIZE_WITH_GHOSTS_CELLS, NB_STEPS, REPARTITION_PROBABILITY);
+    if (my_id == 0) {
+        printf("\nNumber of live cells = %d\n", nb_live_cells);
+    }
 
 
     MPI_Finalize();

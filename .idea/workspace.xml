@@ -24,7 +24,7 @@
       <file leaf-file-name="tester_game_of_life.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tester_game_of_life.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
+            <state relative-caret-position="459">
               <caret line="27" column="34" lean-forward="false" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
               <folding />
             </state>
@@ -34,8 +34,8 @@
       <file leaf-file-name="Makefile" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Makefile">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="772">
-              <caret line="60" column="42" lean-forward="true" selection-start-line="60" selection-start-column="42" selection-end-line="60" selection-end-column="42" />
+            <state relative-caret-position="381">
+              <caret line="55" column="16" lean-forward="false" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -44,14 +44,12 @@
       <file leaf-file-name="game_of_life.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game_of_life.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="23" column="4" lean-forward="false" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
+            <state relative-caret-position="340">
+              <caret line="50" column="36" lean-forward="false" selection-start-line="50" selection-start-column="36" selection-end-line="50" selection-end-column="36" />
               <folding>
-                <element signature="e#1463#2532#0" expanded="false" />
-                <element signature="e#2534#2904#0" expanded="false" />
-                <element signature="e#2906#3294#0" expanded="false" />
-                <element signature="e#3296#3517#0" expanded="false" />
-                <element signature="e#3519#4393#0" expanded="false" />
+                <element signature="e#2849#3219#0" expanded="false" />
+                <element signature="e#3221#3609#0" expanded="false" />
+                <element signature="e#3611#3832#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -60,8 +58,8 @@
       <file leaf-file-name="mesurer-game-of-life.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mesurer-game-of-life.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="47" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="13" selection-end-column="47" />
+            <state relative-caret-position="340">
+              <caret line="20" column="21" lean-forward="false" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -70,7 +68,7 @@
       <file leaf-file-name="MiniCUnit.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MiniCUnit.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="511">
+            <state relative-caret-position="460">
               <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
               <folding />
             </state>
@@ -100,8 +98,8 @@
       <file leaf-file-name="game_of_life.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game_of_life.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="79" lean-forward="false" selection-start-line="22" selection-start-column="79" selection-end-line="22" selection-end-column="79" />
+            <state relative-caret-position="544">
+              <caret line="32" column="56" lean-forward="true" selection-start-line="32" selection-start-column="56" selection-end-line="32" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -122,6 +120,7 @@
       <find>3</find>
       <find>CELL_NEIGHBORS_SIZE</find>
       <find>init</find>
+      <find>get</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -138,9 +137,9 @@
         <option value="$PROJECT_DIR$/config/plusieurs-hosts.txt" />
         <option value="$PROJECT_DIR$/config/deux-hosts.txt" />
         <option value="$PROJECT_DIR$/config/un-host.txt" />
-        <option value="$PROJECT_DIR$/Makefile" />
         <option value="$PROJECT_DIR$/execute.sh" />
         <option value="$PROJECT_DIR$/deploy_and_execute.sh" />
+        <option value="$PROJECT_DIR$/Makefile" />
         <option value="$PROJECT_DIR$/game_of_life.h" />
         <option value="$PROJECT_DIR$/mesurer-game-of-life.c" />
         <option value="$PROJECT_DIR$/game_of_life.c" />
@@ -434,12 +433,12 @@
       <updated>1493308829527</updated>
       <workItem from="1493308831081" duration="21553000" />
       <workItem from="1493567009118" duration="5461000" />
-      <workItem from="1493572481794" duration="9895000" />
+      <workItem from="1493572481794" duration="17428000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36909000" />
+    <option name="totallyTimeSpent" value="44442000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="-11" width="1922" height="1029" extended-state="6" />
@@ -452,7 +451,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36596218" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.42269188" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -499,11 +498,9 @@
         <state relative-caret-position="255">
           <caret line="15" column="73" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="73" />
           <folding>
-            <element signature="e#1463#2532#0" expanded="false" />
-            <element signature="e#2534#2904#0" expanded="false" />
-            <element signature="e#2906#3294#0" expanded="false" />
-            <element signature="e#3296#3517#0" expanded="false" />
-            <element signature="e#3519#4393#0" expanded="false" />
+            <element signature="e#2849#3219#0" expanded="false" />
+            <element signature="e#3221#3609#0" expanded="false" />
+            <element signature="e#3611#3832#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -569,11 +566,9 @@
         <state relative-caret-position="1938">
           <caret line="114" column="0" lean-forward="false" selection-start-line="114" selection-start-column="2" selection-end-line="148" selection-end-column="3" />
           <folding>
-            <element signature="e#1463#2532#0" expanded="false" />
-            <element signature="e#2534#2904#0" expanded="false" />
-            <element signature="e#2906#3294#0" expanded="false" />
-            <element signature="e#3296#3517#0" expanded="false" />
-            <element signature="e#3519#4393#0" expanded="false" />
+            <element signature="e#2849#3219#0" expanded="false" />
+            <element signature="e#3221#3609#0" expanded="false" />
+            <element signature="e#3611#3832#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -618,22 +613,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Makefile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="772">
-          <caret line="60" column="42" lean-forward="true" selection-start-line="60" selection-start-column="42" selection-end-line="60" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MiniCUnit.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="511">
-          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/deploy_and_execute.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -652,38 +631,52 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tester_game_of_life.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
+        <state relative-caret-position="459">
           <caret line="27" column="34" lean-forward="false" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="55" column="16" lean-forward="false" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MiniCUnit.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/game_of_life.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="79" lean-forward="false" selection-start-line="22" selection-start-column="79" selection-end-line="22" selection-end-column="79" />
+        <state relative-caret-position="544">
+          <caret line="32" column="56" lean-forward="true" selection-start-line="32" selection-start-column="56" selection-end-line="32" selection-end-column="56" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mesurer-game-of-life.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="47" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="13" selection-end-column="47" />
+        <state relative-caret-position="340">
+          <caret line="20" column="21" lean-forward="false" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/game_of_life.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="23" column="4" lean-forward="false" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
+        <state relative-caret-position="340">
+          <caret line="50" column="36" lean-forward="false" selection-start-line="50" selection-start-column="36" selection-end-line="50" selection-end-column="36" />
           <folding>
-            <element signature="e#1463#2532#0" expanded="false" />
-            <element signature="e#2534#2904#0" expanded="false" />
-            <element signature="e#2906#3294#0" expanded="false" />
-            <element signature="e#3296#3517#0" expanded="false" />
-            <element signature="e#3519#4393#0" expanded="false" />
+            <element signature="e#2849#3219#0" expanded="false" />
+            <element signature="e#3221#3609#0" expanded="false" />
+            <element signature="e#3611#3832#0" expanded="false" />
           </folding>
         </state>
       </provider>

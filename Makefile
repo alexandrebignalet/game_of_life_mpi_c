@@ -51,6 +51,10 @@ run: $(MESURE)
 	$(RUN) -np $(NP) --map-by node --hostfile config/plusieurs-hosts.txt hostname
 	$(RUN) -np $(NP) --map-by node --hostfile config/plusieurs-hosts.txt ./$(MESURE)
 
+debug: $(MESURE)
+	@echo "debug: On utilise les deux processeurs suivants"
+	$(RUN) -np 2 ./$(MESURE)
+
 debug1: $(MESURE)
 	@echo "debug1: On utilise les deux processeurs suivants"
 	$(RUN) -np 2 --hostfile config/un-host.txt hostname
