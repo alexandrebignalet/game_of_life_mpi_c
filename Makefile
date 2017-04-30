@@ -12,7 +12,7 @@ NP=4
 # Pour qu'une erreur d'execution ne termine pas le reste du makefile.
 .IGNORE:
 
-CC = mpicc
+MPICC = mpicc
 RUN = mpirun
 CFLAGS = -std=c99
 RM     = rm -f
@@ -58,15 +58,6 @@ debug2: $(EXEC)
 	$(RUN) -np 2 --map-by node --hostfile config/deux-host.txt hostname
 	$(RUN) -np 2 --map-by node --hostfile config/deux-host.txt ./$(MESURE)
 
-$(MESURE).o: game_of_life.h $(MESURE).c
-
-$(MESURE): $(MESURE).o $(OBJECTS)
-	$(CC) -o $(MESURE) $(MESURE).o  $(OBJECTS) $(CFLAGS)
-
-mesures: mesures-gol
-
-mesures-gol: $(MESURE)
-	./$(MESURE)
 
 #######################################
 # Dependances pour les divers fichiers.
@@ -74,7 +65,7 @@ mesures-gol: $(MESURE)
 
 # Regle implicite pour compilation des fichiers .c
 .c.o:
-	$(CC) -c $< $(CFLAGS)
+	$(MPICC) -c $< $(CFLAGS)
 
 MiniCUnit.o: MiniCUnit.h
 
