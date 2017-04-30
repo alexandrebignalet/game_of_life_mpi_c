@@ -22,6 +22,18 @@ OBJECTS  = MiniCUnit.o game_of_life.o
 TEST     = tester_game_of_life
 MESURE   = mesurer-game-of-life
 
+##############################################
+# Cibles principales: compilation et tests
+##############################################
+
+default: compile tests
+
+compile: $(TEST)
+
+tests: tests_gol
+
+tests_gol: $(TEST)
+	./$(TEST)
 
 #######################################
 # Mesures

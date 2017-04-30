@@ -13,6 +13,6 @@ make clean
 
 make compile
 
-make
+make debug1
 
 make clean
