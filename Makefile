@@ -41,12 +41,12 @@ tests_gol: $(TEST)
 $(MESURE).o: game_of_life.h $(MESURE).c
 
 $(MESURE): $(MESURE).o $(OBJECTS)
-	$(CC) -o $(MESURE) $(MESURE).o  $(OBJECTS) $(CFLAGS)
+    $(CC) -o $(MESURE) $(MESURE).o  $(OBJECTS) $(CFLAGS)
 
 mesures: mesures-gol
 
 mesures-gol: $(MESURE)
-	./$(MESURE)
+    ./$(MESURE)
 
 run: $(MESURE)
     @echo "run: On utilise les processeurs suivants"
