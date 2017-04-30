@@ -14,6 +14,8 @@
 
 #define NB_STEPS 201    /* number of time steps */
 
+#define ROOT 0
+
 typedef int** GenerationMatrix;
 
 typedef int** CellNeighbors;

@@ -8,15 +8,32 @@ sequential version
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <mpi.h>
 #include "game_of_life.h"
 
 int CELL_NEIGHBORS_SIZE = 3;
 
 int game_of_life_par_static(int size, int nb_steps, int repartition_probability, int my_id, int nb_procs) {
     int nb_live_cells = 0;
-    printf("id: %d, nbProcs: %d \n", my_id, nb_procs);
-    GenerationMatrix matrix = initGenerationMatrix(size, repartition_probability);
-    generation(matrix, size, nb_steps);
+    int my_size = (size/nb_procs) + GHOST_CELLS_SIZE;
+    GenerationMatrix matrix;
+
+    if (my_id == ROOT) {
+        matrix = initGenerationMatrix(size, repartition_probability);
+    }
+
+    // init a sub matrix foreach procs
+    GenerationMatrix my_matrix = (GenerationMatrix) malloc(my_size* sizeof(int*));
+    for( int i = 0; i < my_size; i++) {
+        my_matrix[i] = (int*) malloc(my_size* sizeof(int));
+    }
+
+
+    MPI_Scatter(matrix, my_size, MPI_INT, my_matrix, my_size, MPI_INT, 0, MPI_COMM_WORLD);
+
+    generation(my_matrix, my_size, nb_steps);
+
+    MPI_Gather(my_matrix, my_size, MPI_INT, matrix, my_size, MPI_INT, 0, MPI_COMM_WORLD);
 
     /*  Iterations are done; sum the number of live cells */
     int x, y;
