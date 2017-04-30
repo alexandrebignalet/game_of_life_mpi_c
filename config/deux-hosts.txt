@@ -1,0 +1,2 @@
+quark20.hpc.uqam.ca
+quark21.hpc.uqam.ca
