@@ -19,6 +19,7 @@ RM     = rm -f
 
 # Les divers fichiers objets.
 OBJECTS  = MiniCUnit.o game_of_life.o
+BASE_FILES = game_of_life
 TEST     = tester_game_of_life
 MESURE   = mesurer-game-of-life
 
@@ -28,7 +29,7 @@ MESURE   = mesurer-game-of-life
 
 default: run
 
-compile: $(MESURE)
+compile: $(MESURE) $(BASE_FILES)
 
 run: $(MESURE)
 	@echo "run: On utilise les processeurs suivants"
