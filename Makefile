@@ -12,8 +12,10 @@ NP=4
 # Pour qu'une erreur d'execution ne termine pas le reste du makefile.
 .IGNORE:
 
-CC     = mpicc
-CFLAGS = -std=c99
+MPICC  = mpicc
+CC     = /usr/bin/g++
+MPICFLAGS = -std=c99
+CFLAGS = -std=c++11 -Wno-write-strings
 RM     = rm -f
 RUN    = mpirun
 
@@ -28,8 +30,6 @@ MESURE   = mesurer-game-of-life
 ##############################################
 default: compile tests
 
-compile: $(TEST)
-
 tests: tests_gol
 
 tests_gol: $(TEST)
@@ -42,12 +42,9 @@ tests_gol: $(TEST)
 $(MESURE).o: game_of_life.h $(MESURE).c
 
 $(MESURE): $(MESURE).o $(OBJECTS)
-	$(CC) -o $(MESURE) $(MESURE).o  $(OBJECTS) $(CFLAGS)
+	$(MPICC) -o $(MESURE) $(MESURE).o  $(OBJECTS) $(MPICFLAGS)
 
-mesures: mesures-gol
-
-mesures-gol: $(MESURE)
-	$(RUN) -np 2 ./$(MESURE)
+mesures: clean $(MESURE)
 
 run: $(MESURE)
 	@echo "run: On utilise les processeurs suivants"
@@ -70,7 +67,7 @@ debug2: $(MESURE)
 
 # Regle implicite pour compilation des fichiers .c
 .c.o:
-	$(CC) -c $< $(CFLAGS)
+	$(MPICC) -c $< $(MPICFLAGS)
 
 MiniCUnit.o: MiniCUnit.h
 
@@ -78,7 +75,9 @@ game_of_life.o: game_of_life.h game_of_life.c
 
 $(TEST).o: MiniCUnit.h game_of_life.h $(TEST).c
 
-$(TEST): $(TEST).o $(OBJECTS) $(TEST_OBJECTS)
+$(TEST):
+	$(CC) -c MiniCUnit.h MiniCUnit.c $(CFLAGS)
+	$(CC) -c game_of_life.h game_of_life.c tester_game_of_life.c $(CFLAGS)
 	$(CC) -o $(TEST) $(TEST).o  $(OBJECTS) $(TEST_OBJECTS) $(CFLAGS)
 
 clean:
