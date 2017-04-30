@@ -30,9 +30,4 @@ GenerationMatrix initGenerationMatrix(int size, int repartition_probability);
 
 void printGeneration(GenerationMatrix matrix, int size);
 
-// UTILS
-
-enum Mode { SEQUENTIEL, PARALLELE };
-void selectionnerMode( Mode m );
-
 #endif //DEVOIR2_GAME_OF_LIFE_H
