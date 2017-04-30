@@ -13,7 +13,15 @@ sequential version
 
 int CELL_NEIGHBORS_SIZE = 3;
 
-int game_of_life_par_static(int size, int nb_steps, int repartition_probability, int my_id, int nb_procs) {
+int game_of_life_par_static(int size, int nb_steps, int repartition_probability) {
+
+    int my_id, nb_procs;
+
+    // On initialise MPI.
+    MPI_Init( &argc, &argv );
+    MPI_Comm_rank( MPI_COMM_WORLD, &my_id );
+    MPI_Comm_size( MPI_COMM_WORLD, &nb_procs );
+
     int nb_live_cells = 0;
     int my_size = size / nb_procs;
     GenerationMatrix matrix;

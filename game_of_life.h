@@ -20,7 +20,7 @@ typedef int** GenerationMatrix;
 
 typedef int** CellNeighbors;
 
-int game_of_life_par_static(int size, int nb_steps, int repartition_probability, int my_id, int nb_procs);
+int game_of_life_par_static(int size, int nb_steps, int repartition_probability);
 
 int getCellState(CellNeighbors cell_neighbors);
 
