@@ -18,52 +18,62 @@ int game_of_life_par_static(int size, int nb_steps, int repartition_probability)
     int my_id, nb_procs;
 
     int nb_live_cells = 0;
+    int my_sum = 0;
     MPI_Comm_rank( MPI_COMM_WORLD, &my_id );
     MPI_Comm_size( MPI_COMM_WORLD, &nb_procs );
 
-    int my_size = size / nb_procs;
-    GenerationMatrix matrix;
+    int my_size = (size / nb_procs) + GHOST_CELLS_SIZE;
+    GenerationMatrix matrix, my_matrix;
 
     if (my_id == ROOT) {
         matrix = initGenerationMatrix(size, repartition_probability);
-    }
-
-    // init a sub matrix foreach procs
-    GenerationMatrix my_matrix = (GenerationMatrix) malloc(my_size * sizeof(int*));
-    for( int i = 0; i < my_size; i++) {
-        my_matrix[i] = (int*) malloc(size * sizeof(int));
+    } else {
+        // init a sub matrix foreach procs
+        my_matrix = (GenerationMatrix) malloc( my_size * sizeof(int*));
+        for( int i = 0; i < my_size; i++) {
+            my_matrix[i] = (int*) malloc(size * sizeof(int));
+        }
     }
 
     if (my_id == ROOT) {
         int start_line_chunk;
 
-        for (int num_proc = 0; num_proc < nb_procs; num_proc++) {
-            start_line_chunk = my_size * num_proc != 0;
+        for (int num_proc = 1; num_proc < nb_procs; num_proc++) {
+            start_line_chunk = my_size * (num_proc-1);
 
-            int k = 0;
+            // let space for ghost cells
+            int k = 2;
             while(k < my_size) {
                 my_matrix[k] = matrix[start_line_chunk];
                 start_line_chunk++;
                 k++;
             }
 
-            if (num_proc != ROOT) {
-                MPI_Send (*my_matrix, my_size, MPI_INT, num_proc, ROOT, MPI_COMM_WORLD);
-            }
+
+            MPI_Send (*my_matrix, my_size, MPI_INT, num_proc, 0, MPI_COMM_WORLD);
+        }
+
+        for (int y = 1; y < nb_procs; y++) {
+            MPI_Recv(&my_sum, 1, MPI_INT, MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            printf("receive");
+            nb_live_cells += my_sum;
         }
     } else {
         MPI_Recv(*my_matrix, my_size, MPI_INT, ROOT, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-    }
 
-    int my_sum = 0;
-    for (int j = 0; j < my_size; j++) {
-        for (int z = 0; z < my_size; z++) {
-            my_sum += my_matrix[j][z];
+        for (int j = 1; j < my_size-1; j++) {
+            for (int z = 1; z < my_size-1; z++) {
+                my_sum += my_matrix[j][z];
+            }
         }
+
+        MPI_Send (&my_sum, 1, MPI_INT, ROOT, 0, MPI_COMM_WORLD);
     }
 
-    printf("id: %d, sum: %d", my_id, my_sum);
-    MPI_Reduce(&my_sum, &nb_live_cells, 1, MPI_INT, MPI_SUM, ROOT, MPI_COMM_WORLD);
+    printf("id: %d, sum: %d", my_id, nb_live_cells);
+
+
+
 
     return nb_live_cells;
 }
