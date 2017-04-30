@@ -15,7 +15,7 @@ int CELL_NEIGHBORS_SIZE = 3;
 
 int game_of_life_par_static(int size, int nb_steps, int repartition_probability, int my_id, int nb_procs) {
     int nb_live_cells = 0;
-    int my_size = (size/nb_procs) + GHOST_CELLS_SIZE;
+    int my_size = (size/nb_procs);
     GenerationMatrix matrix;
 
     if (my_id == ROOT) {
