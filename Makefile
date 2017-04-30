@@ -17,7 +17,8 @@ CFLAGS = -std=c99
 RM     = rm -f
 
 # Les divers fichiers objets.
-OBJECTS  = MiniCUnit.o game_of_life.o
+TEST_OBJECTS = MiniCUnit.o
+OBJECTS  = game_of_life.o
 TEST     = tester_game_of_life
 MESURE   = mesurer-game-of-life
 
@@ -61,8 +62,8 @@ game_of_life.o: game_of_life.h
 
 $(TEST).o: MiniCUnit.h game_of_life.h $(TEST).c
 
-$(TEST): $(TEST).o $(OBJECTS)
-	$(CC) -o $(TEST) $(TEST).o  $(OBJECTS) $(CFLAGS)
+$(TEST): $(TEST).o $(OBJECTS) $(TEST_OBJECTS)
+	$(CC) -o $(TEST) $(TEST).o  $(OBJECTS) $(TEST_OBJECTS) $(CFLAGS)
 
 clean:
 	$(RM) *.o $(TEST) $(MESURE)
