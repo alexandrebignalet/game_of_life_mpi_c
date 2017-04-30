@@ -48,6 +48,21 @@ mesures: mesures-gol
 mesures-gol: $(MESURE)
 	./$(MESURE)
 
+run: $(MESURE)
+    @echo "run: On utilise les processeurs suivants"
+    $(RUN) -np $(NP) --map-by node --hostfile plusieurs-hosts.txt hostname
+    $(RUN) -np $(NP) --map-by node --hostfile plusieurs-hosts.txt ./$(MESURE)
+
+debug1: $(MESURE)
+    @echo "debug1: On utilise les deux processeurs suivants"
+    $(RUN) -np 2 --hostfile un-host.txt hostname
+    $(RUN) -np 2 --hostfile un-host.txt ./$(MESURE)
+
+debug2: $(MESURE)
+    @echo "debug2: On utilise les deux processeurs suivants"
+    $(RUN) -np 2 --map-by node --hostfile deux-host.txt hostname
+    $(RUN) -np 2 --map-by node --hostfile deux-host.txt ./$(MESURE)
+
 #######################################
 # Dependances pour les divers fichiers.
 #######################################
