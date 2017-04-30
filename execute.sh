@@ -11,7 +11,7 @@ cd game_of_life_mpi_c
 
 make clean
 
-make compile
+make mesures
 
 make debug1
 
