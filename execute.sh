@@ -13,4 +13,6 @@ make clean
 
 make mesures
 
+make debug1
+
 make clean

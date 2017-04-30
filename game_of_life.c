@@ -12,10 +12,9 @@ sequential version
 
 int CELL_NEIGHBORS_SIZE = 3;
 
-
-int game_of_life_seq(int size, int nb_steps, int repartition_probability) {
+int game_of_life_par_static(int size, int nb_steps, int repartition_probability, int my_id, int nb_procs) {
     int nb_live_cells = 0;
-
+    printf("id: %d, nbProcs: %d \n", my_id, nb_procs);
     GenerationMatrix matrix = initGenerationMatrix(size, repartition_probability);
     generation(matrix, size, nb_steps);
 
