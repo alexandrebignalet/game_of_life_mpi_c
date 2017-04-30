@@ -29,14 +29,14 @@ int game_of_life_par_static(int size, int nb_steps, int repartition_probability,
     }
 
 
-    MPI_Scatter(matrix, my_size*sizeof(int), MPI_INT, my_matrix, my_size*sizeof(int), MPI_INT, ROOT, MPI_COMM_WORLD);
+    MPI_Scatter(matrix, my_size, MPI_INT, my_matrix, my_size, MPI_INT, ROOT, MPI_COMM_WORLD);
 
 //    generation(my_matrix, my_size, nb_steps);
     printf("ID: %d\n", my_id);
     printGeneration(my_matrix, my_size);
     printf("\n");
 
-    MPI_Gather(my_matrix, my_size, MPI_INT, matrix, my_size, MPI_INT, ROOT, MPI_COMM_WORLD);
+//    MPI_Gather(my_matrix, my_size, MPI_INT, matrix, my_size, MPI_INT, ROOT, MPI_COMM_WORLD);
 
     /*  Iterations are done; sum the number of live cells */
     int x, y;

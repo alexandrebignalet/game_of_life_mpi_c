@@ -44,14 +44,14 @@
       <file leaf-file-name="game_of_life.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game_of_life.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="31" column="32" lean-forward="true" selection-start-line="31" selection-start-column="32" selection-end-line="31" selection-end-column="32" />
+            <state relative-caret-position="459">
+              <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
               <folding>
-                <element signature="e#1329#2398#0" expanded="false" />
-                <element signature="e#2400#2770#0" expanded="false" />
-                <element signature="e#2772#3160#0" expanded="false" />
-                <element signature="e#3162#3383#0" expanded="false" />
-                <element signature="e#3385#4259#0" expanded="false" />
+                <element signature="e#1307#2376#0" expanded="false" />
+                <element signature="e#2378#2748#0" expanded="false" />
+                <element signature="e#2750#3138#0" expanded="false" />
+                <element signature="e#3140#3361#0" expanded="false" />
+                <element signature="e#3363#4237#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -434,12 +434,12 @@
       <updated>1493308829527</updated>
       <workItem from="1493308831081" duration="21553000" />
       <workItem from="1493567009118" duration="5461000" />
-      <workItem from="1493572481794" duration="9676000" />
+      <workItem from="1493572481794" duration="9771000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36690000" />
+    <option name="totallyTimeSpent" value="36785000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="-11" width="1922" height="1029" extended-state="6" />
@@ -499,11 +499,11 @@
         <state relative-caret-position="255">
           <caret line="15" column="73" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="73" />
           <folding>
-            <element signature="e#1329#2398#0" expanded="false" />
-            <element signature="e#2400#2770#0" expanded="false" />
-            <element signature="e#2772#3160#0" expanded="false" />
-            <element signature="e#3162#3383#0" expanded="false" />
-            <element signature="e#3385#4259#0" expanded="false" />
+            <element signature="e#1307#2376#0" expanded="false" />
+            <element signature="e#2378#2748#0" expanded="false" />
+            <element signature="e#2750#3138#0" expanded="false" />
+            <element signature="e#3140#3361#0" expanded="false" />
+            <element signature="e#3363#4237#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -569,11 +569,11 @@
         <state relative-caret-position="1938">
           <caret line="114" column="0" lean-forward="false" selection-start-line="114" selection-start-column="2" selection-end-line="148" selection-end-column="3" />
           <folding>
-            <element signature="e#1329#2398#0" expanded="false" />
-            <element signature="e#2400#2770#0" expanded="false" />
-            <element signature="e#2772#3160#0" expanded="false" />
-            <element signature="e#3162#3383#0" expanded="false" />
-            <element signature="e#3385#4259#0" expanded="false" />
+            <element signature="e#1307#2376#0" expanded="false" />
+            <element signature="e#2378#2748#0" expanded="false" />
+            <element signature="e#2750#3138#0" expanded="false" />
+            <element signature="e#3140#3361#0" expanded="false" />
+            <element signature="e#3363#4237#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -676,14 +676,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/game_of_life.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="31" column="32" lean-forward="true" selection-start-line="31" selection-start-column="32" selection-end-line="31" selection-end-column="32" />
+        <state relative-caret-position="459">
+          <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
           <folding>
-            <element signature="e#1329#2398#0" expanded="false" />
-            <element signature="e#2400#2770#0" expanded="false" />
-            <element signature="e#2772#3160#0" expanded="false" />
-            <element signature="e#3162#3383#0" expanded="false" />
-            <element signature="e#3385#4259#0" expanded="false" />
+            <element signature="e#1307#2376#0" expanded="false" />
+            <element signature="e#2378#2748#0" expanded="false" />
+            <element signature="e#2750#3138#0" expanded="false" />
+            <element signature="e#3140#3361#0" expanded="false" />
+            <element signature="e#3363#4237#0" expanded="false" />
           </folding>
         </state>
       </provider>
