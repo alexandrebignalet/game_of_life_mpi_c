@@ -7,7 +7,7 @@
 ################################################################################
 
 
-N=1000
+NP=4
 
 # Pour qu'une erreur d'execution ne termine pas le reste du makefile.
 .IGNORE:
@@ -15,6 +15,7 @@ N=1000
 CC     = mpicc
 CFLAGS = -std=c99
 RM     = rm -f
+RUN    = mpirun
 
 # Les divers fichiers objets.
 TEST_OBJECTS = MiniCUnit.o
@@ -41,27 +42,27 @@ tests_gol: $(TEST)
 $(MESURE).o: game_of_life.h $(MESURE).c
 
 $(MESURE): $(MESURE).o $(OBJECTS)
-    $(CC) -o $(MESURE) $(MESURE).o  $(OBJECTS) $(CFLAGS)
+	$(CC) -o $(MESURE) $(MESURE).o  $(OBJECTS) $(CFLAGS)
 
 mesures: mesures-gol
 
 mesures-gol: $(MESURE)
-    ./$(MESURE)
+	$(RUN) -np 2 ./$(MESURE)
 
 run: $(MESURE)
-    @echo "run: On utilise les processeurs suivants"
-    $(RUN) -np $(NP) --map-by node --hostfile plusieurs-hosts.txt hostname
-    $(RUN) -np $(NP) --map-by node --hostfile plusieurs-hosts.txt ./$(MESURE)
+	@echo "run: On utilise les processeurs suivants"
+	$(RUN) -np $(NP) --map-by node --hostfile plusieurs-hosts.txt hostname
+	$(RUN) -np $(NP) --map-by node --hostfile plusieurs-hosts.txt ./$(MESURE)
 
 debug1: $(MESURE)
-    @echo "debug1: On utilise les deux processeurs suivants"
-    $(RUN) -np 2 --hostfile un-host.txt hostname
-    $(RUN) -np 2 --hostfile un-host.txt ./$(MESURE)
+	@echo "debug1: On utilise les deux processeurs suivants"
+	$(RUN) -np 2 --hostfile un-host.txt hostname
+	$(RUN) -np 2 --hostfile un-host.txt ./$(MESURE)
 
 debug2: $(MESURE)
-    @echo "debug2: On utilise les deux processeurs suivants"
-    $(RUN) -np 2 --map-by node --hostfile deux-host.txt hostname
-    $(RUN) -np 2 --map-by node --hostfile deux-host.txt ./$(MESURE)
+	@echo "debug2: On utilise les deux processeurs suivants"
+	$(RUN) -np 2 --map-by node --hostfile deux-host.txt hostname
+	$(RUN) -np 2 --map-by node --hostfile deux-host.txt ./$(MESURE)
 
 #######################################
 # Dependances pour les divers fichiers.
@@ -73,7 +74,7 @@ debug2: $(MESURE)
 
 MiniCUnit.o: MiniCUnit.h
 
-game_of_life.o: game_of_life.h
+game_of_life.o: game_of_life.h game_of_life.c
 
 $(TEST).o: MiniCUnit.h game_of_life.h $(TEST).c
 
