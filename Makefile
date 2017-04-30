@@ -13,6 +13,7 @@ NP=4
 .IGNORE:
 
 MPICC = mpicc
+CC = /usr/bin/g++
 RUN = mpirun
 CFLAGS = -std=c99
 RM     = rm -f
@@ -29,6 +30,7 @@ MESURE   = mesurer-game-of-life
 default: compile tests
 
 compile: $(TEST)
+    $(CC) -c $(TEST) $(CFLAGS)
 
 tests: tests_gol
 
