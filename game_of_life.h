@@ -24,9 +24,9 @@ int game_of_life_par_static(int size, int nb_steps, int repartition_probability)
 
 int getCellState(CellNeighbors cell_neighbors);
 
-int sumCellNeighborhoodState(GenerationMatrix matrix, int x, int y);
+int sumCellNeighborhoodState(int* matrix, int size, int index);
 
-void generation(int size, GenerationMatrix line_block, int block_size);
+void generation(int* line_block, int block_size, int size);
 
 GenerationMatrix initGenerationMatrix(int size, int repartition_probability);
 void initialize(int* matrix, int size, int repartition_probability);

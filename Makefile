@@ -81,8 +81,8 @@ $(TEST).o: MiniCUnit.h game_of_life.h $(TEST).c
 
 $(TEST):
 	$(CC) -c MiniCUnit.h MiniCUnit.c $(CFLAGS)
-	$(CC) -c game_of_life.h game_of_life.c tester_game_of_life.c $(CFLAGS)
-	$(CC) -o $(TEST) $(TEST).o  $(OBJECTS) $(TEST_OBJECTS) $(CFLAGS)
+	$(CC) -c tester_game_of_life.c $(CFLAGS)
+	$(CC) -o $(TEST) $(TEST).o $(TEST_OBJECTS) $(CFLAGS)
 
 clean:
 	$(RM) *.o $(TEST) $(MESURE)
