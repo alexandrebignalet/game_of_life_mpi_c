@@ -1,7 +1,7 @@
 #ifndef DEVOIR2_GAME_OF_LIFE_H
 #define DEVOIR2_GAME_OF_LIFE_H
 
-#define GENERATION_SIZE 18        /* generation array size */
+#define GENERATION_SIZE 14        /* generation array size */
 #define GHOST_CELLS_SIZE 2
 
 #define ALIVE 1
@@ -26,11 +26,14 @@ int getCellState(CellNeighbors cell_neighbors);
 
 int sumCellNeighborhoodState(GenerationMatrix matrix, int x, int y);
 
-void generation(GenerationMatrix base_matrix, int size, int steps);
+void generation(int size, GenerationMatrix line_block, int block_size);
 
 GenerationMatrix initGenerationMatrix(int size, int repartition_probability);
-
+void initialize(int* matrix, int size, int repartition_probability);
 void printGeneration(GenerationMatrix matrix, int size);
+void print(int* matrix, int size);
+void printLine(int *matrix, int size_x, int size_y);
+void getLines(int* matrix, int size, int* buffer, int block_size, int num_proc);
 void printLinesBlock(GenerationMatrix matrix, int size_x, int size_y);
 
 #endif //DEVOIR2_GAME_OF_LIFE_H

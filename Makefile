@@ -14,7 +14,7 @@ NP=4
 
 MPICC  = mpicc
 CC     = /usr/bin/g++
-MPICFLAGS = -std=c99
+MPICFLAGS = -std=c99 -lm
 CFLAGS = -std=c++11 -Wno-write-strings
 RM     = rm -f
 RUN    = mpirun
