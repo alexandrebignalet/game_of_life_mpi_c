@@ -31,5 +31,6 @@ void generation(GenerationMatrix base_matrix, int size, int steps);
 GenerationMatrix initGenerationMatrix(int size, int repartition_probability);
 
 void printGeneration(GenerationMatrix matrix, int size);
+void printLinesBlock(GenerationMatrix matrix, int size_x, int size_y);
 
 #endif //DEVOIR2_GAME_OF_LIFE_H

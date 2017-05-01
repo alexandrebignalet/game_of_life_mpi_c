@@ -13,6 +13,29 @@ sequential version
 
 int CELL_NEIGHBORS_SIZE = 3;
 
+GenerationMatrix getLines(GenerationMatrix matrix, GenerationMatrix lines_block, int block_size, int num_proc) {
+
+    int start_line_chunk = block_size * num_proc;
+    int k = 0;
+
+
+    if (num_proc == 0) {
+        // set ghost cells
+        lines_block[0] = matrix[0];
+        lines_block[1] = matrix[0];
+    } else {
+        lines_block[0] = matrix[start_line_chunk-2];
+        lines_block[1] = matrix[start_line_chunk-1];
+    }
+
+    k = 2;
+    int relative_size = start_line_chunk+block_size;
+    for (int i = start_line_chunk; i < relative_size ; i++) {
+            lines_block[k] = matrix[i];
+            k++;
+    }
+}
+
 int game_of_life_par_static(int size, int nb_steps, int repartition_probability) {
 
     int my_id, nb_procs;
@@ -22,52 +45,27 @@ int game_of_life_par_static(int size, int nb_steps, int repartition_probability)
     MPI_Comm_rank( MPI_COMM_WORLD, &my_id );
     MPI_Comm_size( MPI_COMM_WORLD, &nb_procs );
 
-    int my_size = (size / nb_procs) + GHOST_CELLS_SIZE;
-    GenerationMatrix matrix, my_matrix;
+    int my_size = size / nb_procs;
+    GenerationMatrix matrix;
 
-    if (my_id == ROOT) {
-        matrix = initGenerationMatrix(size, repartition_probability);
-    } else {
-        // init a sub matrix foreach procs
-        my_matrix = (GenerationMatrix) malloc( my_size * sizeof(int*));
-        for( int i = 0; i < my_size; i++) {
-            my_matrix[i] = (int*) malloc(size * sizeof(int));
-        }
+    GenerationMatrix my_matrix = (GenerationMatrix) malloc( (my_size+GHOST_CELLS_SIZE) * sizeof(int*));
+    for( int i = 0; i < my_size; i++) {
+        my_matrix[i] = (int*) malloc(size * sizeof(int));
     }
 
     if (my_id == ROOT) {
-        int start_line_chunk;
 
-        for (int num_proc = 1; num_proc < nb_procs; num_proc++) {
-            start_line_chunk = my_size * (num_proc-1);
+        matrix = initGenerationMatrix(size, repartition_probability);
 
-            // let space for ghost cells
-            int k = 2;
-            while(k < my_size) {
-                my_matrix[k] = matrix[start_line_chunk];
-                start_line_chunk++;
-                k++;
-            }
+        getLines(matrix, my_matrix, my_size, ROOT);
 
-
-            MPI_Send (*my_matrix, my_size, MPI_INT, num_proc, 0, MPI_COMM_WORLD);
-        }
-
-        for (int y = 1; y < nb_procs; y++) {
-            MPI_Recv(&my_sum, 1, MPI_INT, MPI_ANY_SOURCE, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-            printf("receive");
-            nb_live_cells += my_sum;
+        for (int num_proc = 1 ; num_proc < nb_procs; num_proc++) {
+            getLines(matrix, my_matrix, my_size, num_proc);
+            MPI_Send(*my_matrix, (my_size+GHOST_CELLS_SIZE), MPI_INT, num_proc, 0, MPI_COMM_WORLD);
         }
     } else {
-        MPI_Recv(*my_matrix, my_size, MPI_INT, ROOT, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
-        for (int j = 1; j < my_size-1; j++) {
-            for (int z = 1; z < my_size-1; z++) {
-                my_sum += my_matrix[j][z];
-            }
-        }
-
-        MPI_Send (&my_sum, 1, MPI_INT, ROOT, 0, MPI_COMM_WORLD);
+        MPI_Recv(*my_matrix, (my_size+GHOST_CELLS_SIZE), MPI_INT, ROOT, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
     }
 
     printf("id: %d, sum: %d", my_id, nb_live_cells);
@@ -156,6 +154,15 @@ void printGeneration(GenerationMatrix matrix, int size) {
     }
 }
 
+void printLinesBlock(GenerationMatrix matrix, int size_x, int size_y) {
+
+    for (int i = 0 ; i < size_x ; i++) {
+        printf("\n");
+        for (int j = 0 ; j < size_y ; j++) {
+            printf("%d ", matrix[i][j]);
+        }
+    }
+}
 void generation(GenerationMatrix base_matrix, int size, int steps) {
 
     GenerationMatrix tmp_matrix = (int**) malloc(size * sizeof(int*));
