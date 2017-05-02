@@ -19,48 +19,102 @@ int game_of_life_par_static(int size, int nb_steps, int repartition_probability)
 
     int my_id, nb_procs;
 
-    int nb_live_cells = 0;
-    int my_sum = 0;
     MPI_Comm_rank(MPI_COMM_WORLD, &my_id);
     MPI_Comm_size(MPI_COMM_WORLD, &nb_procs);
 
     assert(size % nb_procs == 0 && "Mauvaise valeur pour GENERATION_SIZE: nb_procs ne divise pas GENERATION_SIZE");
 
-    int line_block_size = size / nb_procs;
+    int nb_line_blocs = size / nb_procs;
+    int line_block_size = nb_line_blocs + GHOST_CELLS_SIZE;
+    int height = size;
+    int width = size + GHOST_CELLS_SIZE;
 
-    int *matrix = (int *) malloc(size * size * sizeof(int));
-    int *my_lines = (int *) malloc(size * (line_block_size + GHOST_CELLS_SIZE) * sizeof(int));;
+    int *matrix = (int *) malloc(height * width * sizeof(int));
+    int *my_lines = (int *) malloc( line_block_size * width * sizeof(int));
+
+    int next = my_id + 1;
+    int prev = my_id - 1;
+    int last = nb_procs - 1;
 
     if (my_id == ROOT) {
-        initialize(matrix, size, repartition_probability);
-        print(matrix, size);
-    }
 
-//    for( int step = 0; step < NB_STEPS; step++) {
+        initialize(matrix, height, repartition_probability);
+//        print(matrix, height);
+        int begin, end;
 
-        if (my_id == ROOT) {
-            int begin, end;
+        for (int num_proc = 1; num_proc < nb_procs; num_proc++) {
 
-            for (int num_proc = 1; num_proc < nb_procs; num_proc++) {
+            getLines(matrix, width, my_lines, nb_line_blocs, num_proc);
 
-                getLines(matrix, size, my_lines, line_block_size, num_proc);
-
-                // TODO async
-                MPI_Send(my_lines, size * (line_block_size + GHOST_CELLS_SIZE), MPI_INT, num_proc, 0, MPI_COMM_WORLD);
-            }
-            getLines(matrix, size, my_lines, line_block_size, ROOT);
-        } else {
-
-            MPI_Recv(my_lines, size * (line_block_size + GHOST_CELLS_SIZE), MPI_INT, ROOT, 0, MPI_COMM_WORLD,
-                     MPI_STATUS_IGNORE);
+            MPI_Send(my_lines, width * line_block_size, MPI_INT, num_proc, 0, MPI_COMM_WORLD);
         }
 
-        generation(my_lines, line_block_size + GHOST_CELLS_SIZE, size);
-        printf("my id : %d \n", my_id);
-        printLine(my_lines, line_block_size+1, size);
-//    }
+        getLines(matrix, width, my_lines, nb_line_blocs, ROOT);
+//        printf("\n create");
+//        printLine(my_lines, line_block_size, width);
+    } else {
+        MPI_Recv(my_lines, width * line_block_size, MPI_INT, ROOT, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+//        printf("\n");
+//        printLine(my_lines, line_block_size, width);
+    }
 
-    return nb_live_cells;
+    int* nextLine = (int *) malloc( width * sizeof(int));
+    int* prevLine = (int *) malloc( width * sizeof(int));
+    int nb_cells_alive;
+    int my_nb_cells_alive = 0;
+
+    for( int step = 0; step < NB_STEPS; step++) {
+
+        generation(my_lines, line_block_size, width);
+
+        if(my_id == ROOT) {
+            MPI_Send(&(my_lines[(line_block_size-2)*width]), width, MPI_INT, next, 0, MPI_COMM_WORLD);
+            MPI_Recv(nextLine, width, MPI_INT, next, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            //update my_lines
+            updateLines(my_lines, width, nextLine, (line_block_size-1)*width);
+//            printf("\n updated");
+//            printf("\n line receive: ");
+//            printLine(nextLine, 1, width);printf("\n");
+//            printLine(my_lines, line_block_size, width);
+
+        } else if (my_id == last) {
+            MPI_Send(&(my_lines[size]), width, MPI_INT, prev, 0, MPI_COMM_WORLD);
+            MPI_Recv(prevLine, width, MPI_INT, prev, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            //update my_lines
+            updateLines(my_lines, width, prevLine, size);
+//            printf("\n");
+//            printLine(my_lines, line_block_size, width);
+        } else {
+            MPI_Send(&(my_lines[size]), width, MPI_INT, prev, 0, MPI_COMM_WORLD);
+            MPI_Send(&(my_lines[(line_block_size-2)*width]), width, MPI_INT, next, 0, MPI_COMM_WORLD);
+
+            MPI_Recv(nextLine, width, MPI_INT, next, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            MPI_Recv(prevLine, width, MPI_INT, prev, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            //update mylines
+            updateLines(my_lines, width, nextLine, (line_block_size-1)*width);
+            updateLines(my_lines, width, prevLine, size);
+        }
+    }
+
+    int* ptr = &(my_lines[size]);
+    for ( int i = 0; i < width * nb_line_blocs; i++) {
+        my_nb_cells_alive += *ptr++;
+    }
+
+    MPI_Reduce( &my_nb_cells_alive, &nb_cells_alive, 1, MPI_INT, MPI_SUM, ROOT, MPI_COMM_WORLD );
+
+    return nb_cells_alive;
+}
+
+void updateLines(int* lines, int line_size, int* line, int index) {
+    int* ptr_lines = &(lines[index]);
+    int* ptr_line = line;
+
+    for(int i = 0 ; i < line_size; i++) {
+        *ptr_lines = *ptr_line;
+//        printf("%d == %d ? \n", *ptr_lines++, *ptr_line++);
+        *ptr_lines++; *ptr_line++;
+    }
 }
 
 void initialize(int* matrix, int size, int repartition_probability) {
@@ -69,24 +123,21 @@ void initialize(int* matrix, int size, int repartition_probability) {
     float predicate;
 
     for ( int i = 0; i < size; i++ ) {
+        *pt++ = DEAD;
+
         for ( int j = 0; j < size; j++ ) {
+            rand_number = rand() % repartition_probability;
+            predicate = (float) 1 / repartition_probability;
 
-            if (i == 0 || i == size-1) {
-                *pt++ = DEAD;
-            } else if (j == 0 || j == size-1) {
-                *pt++ = DEAD;
+            if( rand_number < predicate )
+            {
+                *pt++ = ALIVE;
             } else {
-                rand_number = rand() % repartition_probability;
-                predicate = (float) 1 / repartition_probability;
-
-                if( rand_number < predicate )
-                {
-                    *pt++ = ALIVE;
-                } else {
-                    *pt++ = DEAD;
-                }
+                *pt++ = DEAD;
             }
         }
+
+        *pt++ = DEAD;
     }
 }
 
@@ -128,13 +179,16 @@ void print(int *matrix, int size) {
 
     for ( int i = 0; i < size; i++ ) {
         printf("\n");
-        for (int j = 0; j < size; j++) {
+        for (int j = 0; j < (size + GHOST_CELLS_SIZE); j++) {
             printf("%d ", *pt++);
         }
     }
 }
 
 void getLines(int* matrix, int size, int* buffer, int block_size, int num_proc) {
+
+    int nb_procs;
+    MPI_Comm_size(MPI_COMM_WORLD, &nb_procs);
 
     int begin = num_proc * block_size * size;
     int end = begin + block_size;
@@ -145,10 +199,14 @@ void getLines(int* matrix, int size, int* buffer, int block_size, int num_proc) 
     if (num_proc != 0) {
         // set dead ghost cells
         // retrieve last block line
-        int ghost_cells_index = begin - 1 * size;
+        int ghost_cells_index = begin - size;
         int *pt = &(matrix[ghost_cells_index]);
         for (int j = 0; j < size ; j++) {
             *line_ptr++ = *pt++;
+        }
+    } else {
+        for (int j = 0; j < size ; j++) {
+            *line_ptr++ = DEAD;
         }
     }
 
@@ -160,9 +218,13 @@ void getLines(int* matrix, int size, int* buffer, int block_size, int num_proc) 
         }
     }
 
-    if (num_proc == 0) {
+    if (num_proc != nb_procs-1) {
         for(int j = 0; j < size; j++) {
             *line_ptr++ = *ptr++;
+        }
+    } else {
+        for(int j = 0; j < size; j++) {
+            *line_ptr++ = DEAD;
         }
     }
 }
@@ -180,7 +242,6 @@ void printLinesBlock(GenerationMatrix matrix, int size_x, int size_y) {
 void generation(int* line_block, int block_size, int size) {
 
     int *ptr = &(line_block[size+1]);
-    int* tmp = (int*) malloc(size*block_size* sizeof(int));
 
     for( int x = 1; x < block_size-1; x++){
 
@@ -189,25 +250,21 @@ void generation(int* line_block, int block_size, int size) {
             switch(sumCellNeighborhoodState(line_block, size, size*x+y)) {
 
                 case CELL_GOES_ALIVE:
-                    tmp[size*x+y] = ALIVE;
-
+                    *ptr++ = ALIVE;
                     break;
 
                 case CELL_KEEP_STATE:
-                    tmp[size*x+y] = *ptr;
+                    *ptr++;
                     break;
 
                 default:
-                    tmp[size*x+y] = DEAD;
+                    *ptr++ = DEAD;
                     break;
             }
-            *ptr++;
         }
         *ptr++;
         *ptr++;
     }
-
-    *line_block = *tmp;
 }
 
 

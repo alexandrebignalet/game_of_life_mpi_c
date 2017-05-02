@@ -53,7 +53,7 @@ run: $(MESURE)
 
 debug: $(MESURE)
 	@echo "debug: On utilise les deux processeurs suivants"
-	$(RUN) -np 2 ./$(MESURE)
+	$(RUN) -np 3 ./$(MESURE)
 
 debug1: $(MESURE)
 	@echo "debug1: On utilise les deux processeurs suivants"
