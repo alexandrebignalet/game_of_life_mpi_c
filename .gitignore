@@ -1,2 +1,3 @@
 deploy_and_execute.sh
 cmake-build-debug/
+.idea/
