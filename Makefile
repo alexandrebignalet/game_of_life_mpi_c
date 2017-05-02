@@ -37,13 +37,29 @@ default: clean $(MESURE)
 tests: test
 
 mesures: $(MESURE)
-	$(RUN) -np 2 ./$(MESURE) 128 100 2 5 0
-	$(RUN) -np 4 ./$(MESURE) 128 100 2 5 1
-	$(RUN) -np 8 ./$(MESURE) 128 100 2 5 1
-	$(RUN) -np 16 ./$(MESURE) 128 100 2 5 1
-	$(RUN) -np 32 ./$(MESURE) 128 100 2 5 1
-	$(RUN) -np 64 ./$(MESURE) 128 100 2 5 1
-	$(RUN) -np 128 ./$(MESURE) 128 100 2 5 1
+	$(RUN) -np 2 ./$(MESURE)    128 100 2 5 0
+	$(RUN) -np 4 ./$(MESURE)    128 100 2 5 1
+	$(RUN) -np 8 ./$(MESURE)    128 100 2 5 1
+	$(RUN) -np 16 ./$(MESURE)   128 100 2 5 1
+	$(RUN) -np 32 ./$(MESURE)   128 100 2 5 1
+	$(RUN) -np 64 ./$(MESURE)   128 100 2 5 1
+	$(RUN) -np 128 ./$(MESURE)  128 100 2 5 1
+
+	$(RUN) -np 2 ./$(MESURE)    1280 100 2 5 0
+    $(RUN) -np 4 ./$(MESURE)    1280 100 2 5 1
+    $(RUN) -np 8 ./$(MESURE)    1280 100 2 5 1
+    $(RUN) -np 16 ./$(MESURE)   1280 100 2 5 1
+    $(RUN) -np 32 ./$(MESURE)   1280 100 2 5 1
+    $(RUN) -np 64 ./$(MESURE)   1280 100 2 5 1
+    $(RUN) -np 128 ./$(MESURE)  1280 100 2 5 1
+
+    $(RUN) -np 2 ./$(MESURE)    12800 100 2 5 0
+    $(RUN) -np 4 ./$(MESURE)    12800 100 2 5 1
+    $(RUN) -np 8 ./$(MESURE)    12800 100 2 5 1
+    $(RUN) -np 16 ./$(MESURE)   12800 100 2 5 1
+    $(RUN) -np 32 ./$(MESURE)   12800 100 2 5 1
+    $(RUN) -np 64 ./$(MESURE)   12800 100 2 5 1
+    $(RUN) -np 128 ./$(MESURE)  12800 100 2 5 1
 
 #######################################
 # Mesures
