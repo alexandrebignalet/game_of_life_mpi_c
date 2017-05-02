@@ -7,7 +7,7 @@
 ################################################################################
 
 
-NP=4
+NP=100
 
 # Pour qu'une erreur d'execution ne termine pas le reste du makefile.
 .IGNORE:

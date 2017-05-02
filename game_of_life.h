@@ -1,7 +1,7 @@
 #ifndef DEVOIR2_GAME_OF_LIFE_H
 #define DEVOIR2_GAME_OF_LIFE_H
 
-#define GENERATION_SIZE 900        /* generation array size */
+#define GENERATION_SIZE 1000000        /* generation array size */
 #define GHOST_CELLS_SIZE 2
 
 #define ALIVE 1
