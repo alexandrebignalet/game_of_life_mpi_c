@@ -7,7 +7,10 @@
 ################################################################################
 
 
-NP=100
+NP=10
+MATRIX_SIZE = 300
+STEPS = 200
+REPARTITION_PROBABILITY = 2
 
 # Pour qu'une erreur d'execution ne termine pas le reste du makefile.
 .IGNORE:
@@ -28,12 +31,19 @@ MESURE   = mesurer-game-of-life
 ##############################################
 # Cibles principales: compilation et tests
 ##############################################
-default: compile tests
 
-tests: tests_gol
+default: clean $(MESURE)
 
-tests_gol: $(TEST)
-	./$(TEST)
+tests: test
+
+mesures: $(MESURE)
+	$(RUN) -np 2 ./$(MESURE) 128 100 2 5 0
+	$(RUN) -np 4 ./$(MESURE) 128 100 2 5 1
+	$(RUN) -np 8 ./$(MESURE) 128 100 2 5 1
+	$(RUN) -np 16 ./$(MESURE) 128 100 2 5 1
+	$(RUN) -np 32 ./$(MESURE) 128 100 2 5 1
+	$(RUN) -np 64 ./$(MESURE) 128 100 2 5 1
+	$(RUN) -np 128 ./$(MESURE) 128 100 2 5 1
 
 #######################################
 # Mesures
@@ -44,26 +54,25 @@ $(MESURE).o: game_of_life.h $(MESURE).c
 $(MESURE): $(MESURE).o $(OBJECTS)
 	$(MPICC) -o $(MESURE) $(MESURE).o  $(OBJECTS) $(MPICFLAGS)
 
-mesures: clean $(MESURE)
 
 run: $(MESURE)
 	@echo "run: On utilise les processeurs suivants"
 	$(RUN) -np $(NP) --map-by node --hostfile config/plusieurs-hosts.txt hostname
-	$(RUN) -np $(NP) --map-by node --hostfile config/plusieurs-hosts.txt ./$(MESURE)
+	$(RUN) -np $(NP) --map-by node --hostfile config/plusieurs-hosts.txt ./$(MESURE) $(MATRIX_SIZE) $(STEPS) $(REPARTITION_PROBABILITY)
 
 debug: $(MESURE)
 	@echo "debug: On utilise les deux processeurs suivants"
-	$(RUN) -np 3 ./$(MESURE)
+	$(RUN) -np 3 ./$(MESURE) 300 100 2 5 1
 
 debug1: $(MESURE)
 	@echo "debug1: On utilise les deux processeurs suivants"
 	$(RUN) -np 2 --hostfile config/un-host.txt hostname
-	$(RUN) -np 2 --hostfile config/un-host.txt ./$(MESURE)
+	$(RUN) -np 2 --hostfile config/un-host.txt ./$(MESURE) $(MATRIX_SIZE) $(STEPS) $(REPARTITION_PROBABILITY)
 
 debug2: $(MESURE)
 	@echo "debug2: On utilise les deux processeurs suivants"
 	$(RUN) -np 2 --map-by node --hostfile config/deux-host.txt hostname
-	$(RUN) -np 2 --map-by node --hostfile config/deux-host.txt ./$(MESURE)
+	$(RUN) -np 2 --map-by node --hostfile config/deux-host.txt ./$(MESURE) $(MATRIX_SIZE) $(STEPS) $(REPARTITION_PROBABILITY)
 
 #######################################
 # Dependances pour les divers fichiers.
@@ -79,10 +88,11 @@ game_of_life.o: game_of_life.h game_of_life.c
 
 $(TEST).o: MiniCUnit.h game_of_life.h $(TEST).c
 
-$(TEST):
+test:
 	$(CC) -c MiniCUnit.h MiniCUnit.c $(CFLAGS)
 	$(CC) -c tester_game_of_life.c $(CFLAGS)
 	$(CC) -o $(TEST) $(TEST).o $(TEST_OBJECTS) $(CFLAGS)
+	./$(TEST)
 
 clean:
 	$(RM) *.o $(TEST) $(MESURE)
