@@ -37,29 +37,29 @@ default: clean $(MESURE)
 tests: test
 
 mesures: $(MESURE)
-	$(RUN) -np 2 ./$(MESURE)    128 100 2 5 0
-	$(RUN) -np 4 ./$(MESURE)    128 100 2 5 1
-	$(RUN) -np 8 ./$(MESURE)    128 100 2 5 1
-	$(RUN) -np 16 ./$(MESURE)   128 100 2 5 1
-	$(RUN) -np 32 ./$(MESURE)   128 100 2 5 1
-	$(RUN) -np 64 ./$(MESURE)   128 100 2 5 1
-	$(RUN) -np 128 ./$(MESURE)  128 100 2 5 1
+	$(RUN) -np 2 ./$(MESURE)    128 100 2 5 0 > ./benchmarks/data-files/temps-128-100-2.txt
+	$(RUN) -np 4 ./$(MESURE)    128 100 2 5 1 >> ./benchmarks/data-files/temps-128-100-2.txt
+	$(RUN) -np 8 ./$(MESURE)    128 100 2 5 1 >> ./benchmarks/data-files/temps-128-100-2.txt
+	$(RUN) -np 16 ./$(MESURE)   128 100 2 5 1 >> ./benchmarks/data-files/temps-128-100-2.txt
+	$(RUN) -np 32 ./$(MESURE)   128 100 2 5 1 >> ./benchmarks/data-files/temps-128-100-2.txt
+	$(RUN) -np 64 ./$(MESURE)   128 100 2 5 1 >> ./benchmarks/data-files/temps-128-100-2.txt
+	$(RUN) -np 128 ./$(MESURE)  128 100 2 5 1 >> ./benchmarks/data-files/temps-128-100-2.txt
 
-	$(RUN) -np 2 ./$(MESURE)    1280 100 2 5 0
-	$(RUN) -np 4 ./$(MESURE)    1280 100 2 5 1
-	$(RUN) -np 8 ./$(MESURE)    1280 100 2 5 1
-	$RUN) -np 16 ./$(MESURE)   1280 100 2 5 1
-	$(RUN) -np 32 ./$(MESURE)   1280 100 2 5 1
-	$(RUN) -np 64 ./$(MESURE)   1280 100 2 5 1
-	$(RUN) -np 128 ./$(MESURE)  1280 100 2 5 1
+	$(RUN) -np 2 ./$(MESURE)    1000 100 2 5 0 > ./benchmarks/data-files/temps-1000-100-2.txt
+	$(RUN) -np 4 ./$(MESURE)    1000 100 2 5 1 >> ./benchmarks/data-files/temps-1000-100-2.txt
+	$(RUN) -np 8 ./$(MESURE)    1000 100 2 5 1 >> ./benchmarks/data-files/temps-1000-100-2.txt
+	$(RUN) -np 16 ./$(MESURE)   1000 100 2 5 1 >> ./benchmarks/data-files/temps-1000-100-2.txt
+	$(RUN) -np 32 ./$(MESURE)   1000 100 2 5 1 >> ./benchmarks/data-files/temps-1000-100-2.txt
+	$(RUN) -np 64 ./$(MESURE)   1000 100 2 5 1 >> ./benchmarks/data-files/temps-1000-100-2.txt
+	$(RUN) -np 128 ./$(MESURE)  1000 100 2 5 1 >> ./benchmarks/data-files/temps-1000-100-2.txt
 
-	$(RUN) -np 2 ./$(MESURE)    12800 100 2 5 0
-	$(RUN) -np 4 ./$(MESURE)    12800 100 2 5 1
-	$(RUN) -np 8 ./$(MESURE)    12800 100 2 5 1
-	$(RUN) -np 16 ./$(MESURE)   12800 100 2 5 1
-	$(RUN) -np 32 ./$(MESURE)   12800 100 2 5 1
-	$(RUN) -np 64 ./$(MESURE)   12800 100 2 5 1
-	$(RUN) -np 128 ./$(MESURE)  12800 100 2 5 1
+	$(RUN) -np 2 ./$(MESURE)    10000 100 2 5 0 > ./benchmarks/data-files/temps-10000-100-2.txt
+	$(RUN) -np 4 ./$(MESURE)    10000 100 2 5 1 >> ./benchmarks/data-files/temps-10000-100-2.txt
+	$(RUN) -np 8 ./$(MESURE)    10000 100 2 5 1 >> ./benchmarks/data-files/temps-10000-100-2.txt
+	$(RUN) -np 16 ./$(MESURE)   10000  100 2 5 1 >> ./benchmarks/data-files/temps-10000-100-2.txt
+	$(RUN) -np 32 ./$(MESURE)   10000  100 2 5 1 >> ./benchmarks/data-files/temps-10000-100-2.txt
+	$(RUN) -np 64 ./$(MESURE)   10000  100 2 5 1 >> ./benchmarks/data-files/temps-10000-100-2.txt
+	$(RUN) -np 128 ./$(MESURE)  10000  100 2 5 1 >> ./benchmarks/data-files/temps-10000-100-2.txt
 
 #######################################
 # Mesures

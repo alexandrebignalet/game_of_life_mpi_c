@@ -22,7 +22,6 @@ int main(int argc, char *argv[])
 
     srand(time(NULL));
 
-
     double temps_ecoule_seq_version;
     MPI_Barrier( MPI_COMM_WORLD );
     temps_ecoule_seq_version = -MPI_Wtime();

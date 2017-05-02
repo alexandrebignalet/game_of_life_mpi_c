@@ -89,9 +89,9 @@ int game_of_life_by_line(int size, int nb_steps, int repartition_probability) {
 int game_of_life_seq(int size, int nb_steps, int repartition_probability) {
 
     int width = size + GHOST_CELLS_SIZE;
-    int* matrix = (int*) malloc(size*width*sizeof(int));
+    int *matrix = (int *) malloc(size * width * sizeof(int));
 
-    initialize(matrix, size, repartition_probability);
+    initialize(matrix, size, width);
 
     //set first and last lines as ghosts cells
     int* first_line = &(matrix[0]);
