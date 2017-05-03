@@ -58,11 +58,11 @@ int main(int argc, char *argv[])
             printf( "# REPARTITION_PROBABILITY = %d\n", repartition_probability );
             printf( "# NB_CELLS_ALIVE = %d\n", nb_live_cells );
             printf( "# WARMUP_NB = %d\n", warm_up );
-            printf( "# NB_PROCS= %d\n", nb_procs );
-            printf( "# seq        par_line    acc_line\n" );
+            printf( "# nb_procs     seq        par_line    acc_line\n" );
         }
 
         // Impression des resultats.
+        printf( "%7.2f ", nb_procs );
         printf( "%7.2f ", 1000.0*seq_avg );
         printf( "%10.2f ", 1000.0*temps_max_line_version );
         printf( "%10.2f ", seq_avg/temps_max_line_version );
