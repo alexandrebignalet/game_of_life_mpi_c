@@ -28,9 +28,9 @@ int main(int argc, char *argv[])
 
     game_of_life_seq(matrix_size, steps, repartition_probability);
 
-    double temps_sum_seq_version;
+    double temps_max_seq_version;
     temps_ecoule_seq_version += MPI_Wtime();
-    MPI_Reduce( &temps_ecoule_seq_version, &temps_sum_seq_version, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD );
+    MPI_Reduce( &temps_ecoule_seq_version, &temps_max_seq_version, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD );
 
 
     int nb_live_cells;
@@ -50,7 +50,6 @@ int main(int argc, char *argv[])
     }
 
     if (my_id == 0) {
-        double seq_avg = temps_sum_seq_version / nb_procs;
 
         if ( only_results == 0) {
             printf( "# SIZE = %d\n", matrix_size );
@@ -63,9 +62,9 @@ int main(int argc, char *argv[])
 
         // Impression des resultats.
         printf( "%7d ", nb_procs );
-        printf( "%12.2f ", 1000.0*seq_avg );
-        printf( "%10.2f ", 1000.0*temps_max_line_version );
-        printf( "%10.2f ", seq_avg/temps_max_line_version );
+        printf( "%12.2f ", temps_max_seq_version );
+        printf( "%10.2f ", temps_max_line_version );
+        printf( "%10.2f ", temps_max_seq_version/temps_max_line_version );
         printf( "\n" );
     }
 
