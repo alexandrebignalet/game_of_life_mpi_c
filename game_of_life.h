@@ -28,8 +28,6 @@ int game_of_life_by_line(int size, int nb_steps, int repartition_probability);
 void getLines(int* matrix, int size, int* buffer, int block_size, int num_proc);
 void updateLines(int* lines, int line_size, int* line, int index);
 
-// by block
-void getBlock(int* matrix, int size, int* buffer, int block_size, int num_proc);
 
 
 void print(int *matrix, int width, int height);
