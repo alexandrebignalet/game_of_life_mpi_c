@@ -14,6 +14,6 @@ set xlabel "Nombre de procs"
 set ylabel "Acceleration absolue"
 set title "Acceleration absolue en fonction du nombre de procs pour n = $taille"
 set xtics (2, 4, 8, 16, 32, 64, 128)
-plot [0.9:150][0:$prob] \
+plot [0.9:150][0:50] \
 	 "./benchmarks/data-files/temps-$taille-$nbsteps-$prob.txt" using 1:(\$2/\$3) title "line block approach" with linespoints ls 2
 EOF
