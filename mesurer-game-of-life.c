@@ -62,8 +62,8 @@ int main(int argc, char *argv[])
         }
 
         // Impression des resultats.
-        printf( "%7.2f ", nb_procs );
-        printf( "%7.2f ", 1000.0*seq_avg );
+        printf( "%7d ", nb_procs );
+        printf( "%12.2f ", 1000.0*seq_avg );
         printf( "%10.2f ", 1000.0*temps_max_line_version );
         printf( "%10.2f ", seq_avg/temps_max_line_version );
         printf( "\n" );
