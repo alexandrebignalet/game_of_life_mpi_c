@@ -37,30 +37,39 @@ default: clean $(MESURE)
 tests: test
 
 mesures: $(MESURE)
-	$(RUN) -np 2 ./$(MESURE)    128 100 2 5 0 > ./benchmarks/data-files/temps-128-100-2.txt
-	$(RUN) -np 4 ./$(MESURE)    128 100 2 5 1 >> ./benchmarks/data-files/temps-128-100-2.txt
-	$(RUN) -np 8 ./$(MESURE)    128 100 2 5 1 >> ./benchmarks/data-files/temps-128-100-2.txt
-	$(RUN) -np 16 ./$(MESURE)   128 100 2 5 1 >> ./benchmarks/data-files/temps-128-100-2.txt
-	$(RUN) -np 32 ./$(MESURE)   128 100 2 5 1 >> ./benchmarks/data-files/temps-128-100-2.txt
-	$(RUN) -np 64 ./$(MESURE)   128 100 2 5 1 >> ./benchmarks/data-files/temps-128-100-2.txt
+	$(RUN) -np 2   ./$(MESURE)  128 100 2 5 0 >  ./benchmarks/data-files/temps-128-100-2.txt
+	$(RUN) -np 4   ./$(MESURE)  128 100 2 5 1 >> ./benchmarks/data-files/temps-128-100-2.txt
+	$(RUN) -np 8   ./$(MESURE)  128 100 2 5 1 >> ./benchmarks/data-files/temps-128-100-2.txt
+	$(RUN) -np 16  ./$(MESURE)  128 100 2 5 1 >> ./benchmarks/data-files/temps-128-100-2.txt
+	$(RUN) -np 32  ./$(MESURE)  128 100 2 5 1 >> ./benchmarks/data-files/temps-128-100-2.txt
+	$(RUN) -np 64  ./$(MESURE)  128 100 2 5 1 >> ./benchmarks/data-files/temps-128-100-2.txt
 	$(RUN) -np 128 ./$(MESURE)  128 100 2 5 1 >> ./benchmarks/data-files/temps-128-100-2.txt
 
-	$(RUN) -np 2 ./$(MESURE)    1000 100 2 5 0 >  ./benchmarks/data-files/temps-1000-100-2.txt
-	$(RUN) -np 4 ./$(MESURE)    1000 100 2 5 1 >> ./benchmarks/data-files/temps-1000-100-4.txt
-	$(RUN) -np 8 ./$(MESURE)    1000 100 2 5 1 >> ./benchmarks/data-files/temps-1000-100-8.txt
-	$(RUN) -np 10 ./$(MESURE)   1000 100 2 5 1 >> ./benchmarks/data-files/temps-1000-100-10.txt
-	$(RUN) -np 20 ./$(MESURE)   1000 100 2 5 1 >> ./benchmarks/data-files/temps-1000-100-20.txt
-	$(RUN) -np 40 ./$(MESURE)   1000 100 2 5 1 >> ./benchmarks/data-files/temps-1000-100-40.txt
-	$(RUN) -np 50 ./$(MESURE)   1000 100 2 5 1 >> ./benchmarks/data-files/temps-1000-100-50.txt
-	$(RUN) -np 100 ./$(MESURE)  1000 100 2 5 1 >> ./benchmarks/data-files/temps-1000-100-100.txt
+	$(RUN) -np 2   ./$(MESURE)  512 100 2 5 0 >  ./benchmarks/data-files/temps-500-100-2.txt
+	$(RUN) -np 4   ./$(MESURE)  512 100 2 5 1 >> ./benchmarks/data-files/temps-500-100-2.txt
+	$(RUN) -np 8   ./$(MESURE)  512 100 2 5 1 >> ./benchmarks/data-files/temps-500-100-2.txt
+	$(RUN) -np 16  ./$(MESURE)  512 100 2 5 1 >> ./benchmarks/data-files/temps-500-100-2.txt
+	$(RUN) -np 32  ./$(MESURE)  512 100 2 5 1 >> ./benchmarks/data-files/temps-500-100-2.txt
+	$(RUN) -np 64  ./$(MESURE)  512 100 2 5 1 >> ./benchmarks/data-files/temps-500-100-2.txt
+	$(RUN) -np 128 ./$(MESURE)  512 100 2 5 1 >> ./benchmarks/data-files/temps-500-100-2.txt
 
-	$(RUN) -np 2 ./$(MESURE)    512 100 2 5 0  >  ./benchmarks/data-files/temps-500-100-2.txt
-	$(RUN) -np 4 ./$(MESURE)    512 100 2 5 1  >> ./benchmarks/data-files/temps-500-100-4.txt
-	$(RUN) -np 8 ./$(MESURE)    512 100 2 5 1  >> ./benchmarks/data-files/temps-500-100-8.txt
-	$(RUN) -np 16 ./$(MESURE)   512  100 2 5 1 >> ./benchmarks/data-files/temps-500-100-16.txt
-	$(RUN) -np 32 ./$(MESURE)   512  100 2 5 1 >> ./benchmarks/data-files/temps-500-100-32.txt
-	$(RUN) -np 64 ./$(MESURE)   512  100 2 5 1 >> ./benchmarks/data-files/temps-500-100-64.txt
-	$(RUN) -np 128 ./$(MESURE)  512  100 2 5 1 >> ./benchmarks/data-files/temps-500-100-128.txt
+	$(RUN) -np 2   ./$(MESURE)  1024 100 2 5 0 >  ./benchmarks/data-files/temps-1024-100-2.txt
+	$(RUN) -np 4   ./$(MESURE)  1024 100 2 5 1 >> ./benchmarks/data-files/temps-1024-100-2.txt
+	$(RUN) -np 8   ./$(MESURE)  1024 100 2 5 1 >> ./benchmarks/data-files/temps-1024-100-2.txt
+	$(RUN) -np 16  ./$(MESURE)  1024 100 2 5 1 >> ./benchmarks/data-files/temps-1024-100-2.txt
+	$(RUN) -np 32  ./$(MESURE)  1024 100 2 5 1 >> ./benchmarks/data-files/temps-1024-100-2.txt
+	$(RUN) -np 64  ./$(MESURE)  1024 100 2 5 1 >> ./benchmarks/data-files/temps-1024-100-2.txt
+	$(RUN) -np 128 ./$(MESURE)  1024 100 2 5 1 >> ./benchmarks/data-files/temps-1024-100-2.txt
+
+graphes_acc:
+	./benchmarks/scripts/plot-acc.sh 128 100 2
+	./benchmarks/scripts/plot-acc.sh 512 100 2
+	./benchmarks/scripts/plot-acc.sh 1024 100 2
+
+graphes_temps:
+	./benchmarks/scripts/plot-temps.sh 128 100 2
+	./benchmarks/scripts/plot-temps.sh 500 100 2
+	./benchmarks/scripts/plot-temps.sh 1000 100 2
 
 #######################################
 # Mesures
