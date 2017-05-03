@@ -220,41 +220,6 @@ void getLines(int* matrix, int size, int* buffer, int block_size, int num_proc) 
     }
 }
 
-// by block
-int game_of_life_by_block(int size, int nb_steps, int repartition_probability) {
-    int my_id, nb_procs;
-
-    MPI_Comm_rank(MPI_COMM_WORLD, &my_id);
-    MPI_Comm_size(MPI_COMM_WORLD, &nb_procs);
-
-    int nb_cells_alive = 0;
-    int nb_blocs = sqrt(nb_procs);
-    int block_size = size / sqrt(nb_procs);
-    int block_size_with_halo = block_size + GHOST_CELLS_SIZE;
-
-    int height = size;
-    int width = size + GHOST_CELLS_SIZE;
-
-    int *matrix = (int *) malloc(height * width * sizeof(int));
-    int *my_block = (int *) malloc( block_size * block_size * sizeof(int));
-
-    if (my_id == ROOT) {
-
-        initialize(matrix, size, repartition_probability);
-
-        for(int num_proc = 1; num_proc < nb_procs; num_proc++) {
-            getBlock(matrix, size, my_block, block_size, num_proc);
-            MPI_Send(my_block, block_size_with_halo * block_size_with_halo, MPI_INT, num_proc, 0, MPI_COMM_WORLD);
-        }
-        getBlock(matrix, size, my_block, block_size, ROOT);
-    } else {
-        MPI_Recv(my_block, block_size_with_halo * block_size_with_halo, MPI_INT, ROOT, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-    }
-
-
-    return nb_cells_alive;
-}
-
 // utils
 void printLine(int *matrix, int size_x, int size_y) {
     int* ptr = matrix;
