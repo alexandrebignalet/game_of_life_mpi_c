@@ -54,14 +54,13 @@ mesures: $(MESURE)
 	$(RUN) -np 50 ./$(MESURE)   1000 100 2 5 1 >> ./benchmarks/data-files/temps-1000-100-50.txt
 	$(RUN) -np 100 ./$(MESURE)  1000 100 2 5 1 >> ./benchmarks/data-files/temps-1000-100-100.txt
 
-	$(RUN) -np 2 ./$(MESURE)    500 100 2 5 0  >  ./benchmarks/data-files/temps-500-100-2.txt
-	$(RUN) -np 4 ./$(MESURE)    500 100 2 5 1  >> ./benchmarks/data-files/temps-500-100-4.txt
-	$(RUN) -np 5 ./$(MESURE)    500 100 2 5 1  >> ./benchmarks/data-files/temps-500-100-8.txt
-	$(RUN) -np 10 ./$(MESURE)   500  100 2 5 1 >> ./benchmarks/data-files/temps-500-100-10.txt
-	$(RUN) -np 20 ./$(MESURE)   500  100 2 5 1 >> ./benchmarks/data-files/temps-500-100-20.txt
-	$(RUN) -np 40 ./$(MESURE)   500  100 2 5 1 >> ./benchmarks/data-files/temps-500-100-40.txt
-	$(RUN) -np 50 ./$(MESURE)   500  100 2 5 1 >> ./benchmarks/data-files/temps-500-100-50.txt
-	$(RUN) -np 100 ./$(MESURE)  500  100 2 5 1 >> ./benchmarks/data-files/temps-500-100-100txt
+	$(RUN) -np 2 ./$(MESURE)    512 100 2 5 0  >  ./benchmarks/data-files/temps-500-100-2.txt
+	$(RUN) -np 4 ./$(MESURE)    512 100 2 5 1  >> ./benchmarks/data-files/temps-500-100-4.txt
+	$(RUN) -np 8 ./$(MESURE)    512 100 2 5 1  >> ./benchmarks/data-files/temps-500-100-8.txt
+	$(RUN) -np 16 ./$(MESURE)   512  100 2 5 1 >> ./benchmarks/data-files/temps-500-100-16.txt
+	$(RUN) -np 32 ./$(MESURE)   512  100 2 5 1 >> ./benchmarks/data-files/temps-500-100-32.txt
+	$(RUN) -np 64 ./$(MESURE)   512  100 2 5 1 >> ./benchmarks/data-files/temps-500-100-64.txt
+	$(RUN) -np 128 ./$(MESURE)  512  100 2 5 1 >> ./benchmarks/data-files/temps-500-100-128.txt
 
 #######################################
 # Mesures
